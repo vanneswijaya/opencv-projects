@@ -23,8 +23,8 @@ class Ktp:
 
     def char_replace(self):
         result = self.ktp_to_string()
-        teks = ''
-
+        teks = []
+        
         for word in result.split("\n"):
             if "”—" in word:
                 word = word.replace("”—", ":")
@@ -36,8 +36,7 @@ class Ktp:
                 if "?" in word:
                     word = word.replace("?", "7") 
         
-            teks += word
-            teks += '\n'
+            teks.append(word)
 
         return teks
 
@@ -45,14 +44,14 @@ class Ktp:
         result = self.ktp_to_string()
 
         for word in result.split("\n"):
-            if self.name.upper() in word:
+            if 'Nama' in word and self.name.upper() in word:
                 return True
             else:
                 continue
         return False
 
     def validate_ktp(self):
-        word = self.char_replace()
+        word = self.ktp_to_string()
 
         if ("NIK" in word and "Agama" in word and 'Pekerjaan' in word):
             if self.name_check():

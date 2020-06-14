@@ -49,11 +49,14 @@ class SignUp:
         img_url = self.upload_image(self.ktp)
         x = Ktp(self.name, self.ktp)
         ktp_data = x.char_replace()
+        count = 1
         post = {
             'name':self.name,
             'image_url':img_url,
-            'data_ktp':ktp_data
             }
+        for y in ktp_data:
+            post[f'line{count}'] = y
+            count += 1
         collection.insert_one(post)
         print('Data stored')
 
