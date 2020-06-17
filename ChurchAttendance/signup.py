@@ -48,14 +48,20 @@ class SignUp:
     def store_db(self):
         img_url = self.upload_image(self.ktp)
         x = Ktp(self.name, self.ktp)
-        ktp_data = x.char_replace()
+        # ktp_data = x.char_replace()
+        key, value, unknown = x.char_replace()
         count = 1
         post = {
             'name':self.name,
             'image_url':img_url,
             }
-        for y in ktp_data:
-            post[f'line{count}'] = y
+        # for y in ktp_data:
+        #     post[f'line{count}'] = y
+        #     count += 1
+        for y in range(len(key)):
+            post[key[y]] = value[y]
+        for z in unknown:
+            post[f'unknown{count}'] = z
             count += 1
         collection.insert_one(post)
         print('Data stored')

@@ -23,22 +23,34 @@ class Ktp:
 
     def char_replace(self):
         result = self.ktp_to_string()
-        teks = []
-        
+        keylist = []
+        valuelist = []
+        unknownlist = []
+        # teks = []
+
         for word in result.split("\n"):
+            if word.strip() == '':
+                continue
+
             if "”—" in word:
                 word = word.replace("”—", ":")
 
             if "NIK" in word:
-                nik_char = word.split()
                 if "D" in word:
                     word = word.replace("D", "0")
                 if "?" in word:
                     word = word.replace("?", "7") 
-        
-            teks.append(word)
 
-        return teks
+            if ':' in word:
+                keylist.append(word.split(':')[0])
+                valuelist.append(word.split(':')[1])
+            elif ':' not in word:
+                unknownlist.append(word)
+
+            # teks.append(word)
+
+        return keylist, valuelist, unknownlist
+        # return teks
 
     def name_check(self):
         result = self.ktp_to_string()
@@ -61,5 +73,8 @@ class Ktp:
         else:
             return False
 
-# ktp = Ktp('ISAAC SJAHRIR', 'dataset/ktp9.jpg')
-# print(ktp.char_replace())
+# ktp = Ktp('ISAAC SJAHRIR', 'dataset/ktp2.png')
+# key, value, unknown = ktp.char_replace()
+# print(key)
+# print(value)
+# print(unknown)
